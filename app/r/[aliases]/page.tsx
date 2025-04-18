@@ -3,13 +3,13 @@ import { redirect } from "next/navigation";
 
 
 
-export default async function FullPostPage({ params }: {params:Promise<{alias:string}>}) {
-    const { alias } = await params;
-    const post = await getPostByAlias(alias);
+export default async function FullPostPage({ params }: {params:Promise<{id:string}>}) {
+    const { id } = await params;
+    const post = await getPostByAlias(id);
 
     if (!post) {
-        redirect("/error");
+        return redirect("/error");
     }
 
-    redirect(post.url);
+    return redirect(post.url);
 }
