@@ -21,12 +21,23 @@ export default function NewPostForm() {
         <form className = "w-96 rounded-xl p-4 bg-blue-300"
 
         onSubmit={async (event)=>{
+            setError(null)
+            setResult(null)
+
             event.preventDefault();
-                try {
+
                     const newPost = await createNewUrl(url, alias);
-                    setResult(newPost);
-                }
-                catch(err){
+                    if (newPost.error) {
+                        setError(newPost.error);
+
+                    }
+
+                    if (newPost.post) {
+                        setResult(newPost.post);
+                    }
+
+
+            {/*catch(err){
                     if (err instanceof Error) {
                         console.log(err)
                         setError(err.message);
@@ -36,6 +47,8 @@ export default function NewPostForm() {
                     }
                     setResult(null);
         }
+
+        */}
         }}
         >
             <TextField
@@ -44,7 +57,6 @@ export default function NewPostForm() {
                 label="URL"
                 value={url}
                 onChange={(e) =>{
-                    setError(null)
                     setUrl(e.target.value)}}/>
             <Textarea
                 sx={{
@@ -58,7 +70,6 @@ export default function NewPostForm() {
                 placeholder = "Your Alias"
                 value={alias}
                 onChange={(e) =>{
-                    setError(null)
                     setAlias(e.target.value)}}
                 />
             <FormHelperText className="text-center">

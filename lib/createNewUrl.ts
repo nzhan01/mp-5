@@ -4,17 +4,20 @@ import getCollection, {POSTS_COLLECTION} from "@/db";
 import getPostByAlias from "@/lib/getPostByAlias";
 
 
-export default async function createNewUrl( url:string, alias:string):Promise<PostProps>{
+export default async function createNewUrl( url:string, alias:string):Promise<{post?:PostProps , error?:string }>{
 
 
     const response = await fetch(url, { method: "HEAD", redirect: "follow" });
     if (!(response.status >= 200 && response.status < 400)) {
-        throw new Error("Invalid URL");
+        console.log("website didn't load");
+        return {error: "Invalid URL"};
     }
 
     const check = await(getPostByAlias(alias))
     if (check !== null){
-        throw new Error("Alias already exists");
+        console.log("alias already exists");
+        return {error: "Alias already exists"};
+
     }
 
 
@@ -30,8 +33,8 @@ export default async function createNewUrl( url:string, alias:string):Promise<Po
     const res = await postsCollection.insertOne({...p})
 
     if (!res.acknowledged){
-        throw new Error ("DB insert failed");
+        return {error: "DB insertion failed"};
     }
-    return p;
+    return {post:p};
 
 }
