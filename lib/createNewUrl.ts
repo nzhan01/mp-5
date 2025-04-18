@@ -8,6 +8,29 @@ export default async function createNewUrl( url:string, alias:string):Promise<{p
 
 
     const response = await fetch(url, { method: "HEAD", redirect: "follow" });
+
+
+    //regex testing function found via https://www.freecodecamp.org/news/how-to-validate-urls-in-javascript/#heading-how-to-use-regex-to-validate-urls
+    function isValidHttpUrl(str:string) {
+        const pattern = new RegExp(
+            '^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', // fragment locator
+            'i'
+        );
+        return pattern.test(str);
+    }
+
+    if (!isValidHttpUrl(url)) {
+        console.log("website didn't pass regex test");
+        return {error: "Invalid URL"};
+    }
+
+
+
     if (!(response.status >= 200 && response.status < 400)) {
         console.log("website didn't load");
         return {error: "Invalid URL"};
