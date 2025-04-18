@@ -11,7 +11,7 @@ import {PostProps} from "@/types";
                 <h2 className="text-white font-bold text-1.5xl ">
                     Your shortened URL:
                 </h2>
-                <a href={post.url}
+                <a href={shortURL}
                     target="_blank"
                     className="underline text-white text-1xl" >
                     {shortURL}
