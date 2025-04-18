@@ -1,11 +1,22 @@
-
+import NewPostForm from "@/components/NewPostForm";
 
 export default function MainBox() {
 
-
-
-
     return (
+        <>
+            <div className="text-center m-2 p-2">
+                <h1 className="text-4xl font-bold text-gray-900">
+                    URL Shortener
+                </h1>
+            </div>
+            <NewPostForm/>
+        </>
+
+
+    )
+}
+    {/*
+         return (
 
 
         <>
@@ -41,7 +52,9 @@ export default function MainBox() {
                             </div>
                         </div>
                         <button className="w-full text-white font-bold  bg-green-500 hover:bg-green-400 transition-colors  rounded-lg text-sm px-5 py-2.5 text-center me-2 my-2"
-                                type="submit">
+                                type="submit"
+                                onClick={() => {}}
+                                    >
                                 Shorten URL
                         </button>
                     </form>
@@ -49,4 +62,5 @@ export default function MainBox() {
             </div>
         </>
     )
-}
+         */}
+
