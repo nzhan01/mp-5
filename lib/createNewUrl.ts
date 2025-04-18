@@ -6,10 +6,6 @@ import getPostByAlias from "@/lib/getPostByAlias";
 
 export default async function createNewUrl( url:string, alias:string):Promise<{post?:PostProps , error?:string }>{
 
-
-    const response = await fetch(url, { method: "HEAD", redirect: "follow" });
-
-
     //regex testing function found via https://www.freecodecamp.org/news/how-to-validate-urls-in-javascript/#heading-how-to-use-regex-to-validate-urls
     function isValidHttpUrl(str:string) {
         const pattern = new RegExp(
@@ -24,10 +20,12 @@ export default async function createNewUrl( url:string, alias:string):Promise<{p
         return pattern.test(str);
     }
 
+    console.log("checking Regex")
     if (!isValidHttpUrl(url)) {
         console.log("website didn't pass regex test");
         return {error: "Invalid URL"};
     }
+    const response = await fetch(url, { method: "HEAD", redirect: "follow" });
 
 
 
