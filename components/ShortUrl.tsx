@@ -3,6 +3,7 @@
 import {PostProps} from "@/types";
 
     export default function ShortUrl({post}: {post: PostProps}) {
+        //const shortURL = `http://localhost:3000/r/${post.alias}`
         const shortURL = `https://mp-5-orpin-six.vercel.app/r/${post.alias}`
 
         return (
